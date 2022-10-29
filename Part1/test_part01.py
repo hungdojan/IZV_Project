@@ -3,7 +3,7 @@
 Skript pro automaticke testovani prvni casti projektu.
 
 Tento soubor se neodevzdava, takze sem nepiste sve reseni!
-To, ze vas skript projde timto testem, nemusi nutne znamenat, 
+To, ze vas skript projde timto testem, nemusi nutne znamenat,
 ze je vase reseni spravne!
 
 Spousteni:
