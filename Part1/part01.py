@@ -64,7 +64,6 @@ def generate_graph(a: List[float], show_figure: bool = False, save_path: str | N
     plt.close(fig)
 
 
-
 def generate_sinus(show_figure: bool=False, save_path: str | None=None):
     """Generate a complex sinus graph.
 
@@ -102,6 +101,7 @@ def generate_sinus(show_figure: bool=False, save_path: str | None=None):
     neg_f = f1+f2
     neg_f[neg_index] = np.nan
     ax[2].plot(t, neg_f, color='red')
+    fig.tight_layout()
 
     if show_figure:
         plt.show()
@@ -134,7 +134,7 @@ def download_data(url="https://ehw.fit.vutbr.cz/izv/temp.html") -> list:
             "year": int(year),
             "month": int(month),
             "temp": np.array(temp)
-        })
+            })
     return lof_instances
 
 
