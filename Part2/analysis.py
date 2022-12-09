@@ -52,7 +52,8 @@ def load_data(filename : str) -> pd.DataFrame:
                     if file_name not in region_values:
                         continue
 
-                    df = pd.read_csv(inner_zip.open(csv_file), encoding='cp1250', sep=';', low_memory=False, names=headers)
+                    df = pd.read_csv(inner_zip.open(csv_file), encoding='cp1250',
+                                     sep=';', low_memory=False, names=headers)
                     # set region name
                     df['region'] = region_keys[region_values.index(file_name)]
                     dfs.append(df)
@@ -101,12 +102,23 @@ def plot_visibility(df: pd.DataFrame, fig_location: str | None = None,
     df2 = df2.reset_index()
 
     sns.set_style('darkgrid')
-    g = sns.catplot(x='p19', y='count', hue='region', data=df2, kind='bar', palette='muted',
-                    errorbar=None)
+    g = sns.catplot(x='region', y='count', col='p19', data=df2, kind='bar', palette='muted',
+                    col_wrap=2, errorbar=None, sharex="False", aspect=1.3, height=3.2)
+    # plot configuration and label naming
     g.fig.suptitle('Počet nehod v jednotlivých krajích dle viditelnosti')
-    g.set_axis_labels('Viditelnost', 'Počet nehod')
-    g.set_xticklabels(rotation=20)
-    g._legend.set_title('Kraj')
+    g.set_axis_labels('', 'Počet nehod')
+    for ax in g.axes.flat:
+        ax.set_xlabel('Kraj')
+    g.set_titles('Viditelnost: {col_name}')
+
+    # set values on top of the bars
+    # this code was written by user aamir23
+    # and was taken from: https://stackoverflow.com/a/64867495
+    for ax in g.axes.ravel():
+        for c in ax.containers:
+            labels = [f'{(v.get_height() / 1000):.1f}K' for v in c]
+            ax.bar_label(c, labels=labels, label_type='edge')
+        ax.margins(y=0.2)
 
     g.tight_layout()
     if show_figure:
