@@ -33,7 +33,7 @@ def plot_geo(gdf: geopandas.GeoDataFrame, fig_location: str | None = None,
              show_figure: bool = False):
     """ Plot map of accidents in a region.
 
-    Only accidents where at least one of the attendance was under the influence
+    Only accidents where at least one of the attendee was under the influence
     of drugs or alcohol and happened in years 2018-2021.
 
     Args:
